@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel=stylesheet href=jmobile/jquery.mobile-1.4.5.css />
+	<script src=jmobile/jquery.js></script>
+	<script src=jmobile/jquery.mobile-1.4.5.js></script>
+	<script type = "text/javascript">
+		function dec2bin() {
+		var x = document.getElementById("deci").value;
+		if ((/[^0-9]/g.test(x)) || x == "") {
+		alert ("You must enter an integer decimal number!");
+		document.getElementById("deci").value = "";
+		document.getElementById("deci").focus();
+		return false;
+		}
+		x = parseInt(x);
+		var bin = x.toString(2);
+		var hex = x.toString(16).toUpperCase();
+		var octal = x.toString(8);
+
+
+		var figs = "The binary representation of " + x + " is " + bin + "<br>";
+		figs = figs + "The hexadecimal representation of " + x + " is " + hex + "<br>";
+		document.getElementById("result").innerHTML = figs;
+		}
+	</script>
+</head>
+<body>
+	<div data-role=page id=win1>
+		<div data-role=header>
+			<h1>Page 1</h1>
+		</div>
+		<form>
+			<div class="ui-field-contain">
+				<label for="select-native-1">Page:</label>
+				<select name="select-native-1" id="select-native-1" onchange="location = this.value;">
+				<option value="#win1">Page 1</option>
+				<option value="#win2"><a href="#win2">Page 2</a></option>
+				<option value="#win3">Page 3</option>
+				</select>
+			</div>
+		</form>
+		<div data-role=content>
+			<b>Insert Decimal Number: </b><input type = "text" name = "deci" id = "deci" size = "15" maxlength = "15" />
+			<input type="button" value="Convert!" onclick="dec2bin()" />
+			<br><br>
+			<div id = "result"></div>
+		</div>
+	</div> <!-- Page 1 -->
+	<div data-role=page id=win2>
+		<div data-role=header>
+			<h1>Page 2</h1>
+		</div>
+	</div>
+	<div data-role=page id=win3>
+		<div data-role=header>
+			<h1>Page 3</h1>
+		</div>
+	</div>
+</body>
