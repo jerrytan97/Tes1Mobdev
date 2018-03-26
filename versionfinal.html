@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel=stylesheet href=jmobile/jquery.mobile-1.4.5.css />
+	<script src=jmobile/jquery.js></script>
+	<script src=jmobile/jquery.mobile-1.4.5.js></script>
+	<script type = "text/javascript">
+		function dec2bin() {
+			var x = document.getElementById("deci").value;
+			if ((/[^0-9]/g.test(x)) || x == "") {
+			alert ("You must enter an integer decimal number!");
+			document.getElementById("deci").value = "";
+			document.getElementById("deci").focus();
+			return false;
+			}
+			x = parseInt(x);
+			var bin = x.toString(2);
+			var hex = x.toString(16).toUpperCase();
+			var octal = x.toString(8);
+
+
+			var figs = "The binary representation of " + x + " is " + bin + "<br>";
+			figs = figs + "The hexadecimal representation of " + x + " is " + hex + "<br>";
+			document.getElementById("result").innerHTML = figs;
+		}
+
+		function rgb() {
+		  document.getElementById("id1").style.backgroundColor =
+		  "rgb("+document.getElementById("red").value+","
+		  +document.getElementById("green").value+","
+		  +document.getElementById("blue").value+")";
+		}
+
+		$( document ).on( "click", ".show-page-loading-msg", function() {
+		    var $this = $( this ),
+		        theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+		        msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+		        textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+		        textonly = !!$this.jqmData( "textonly" );
+		        html = $this.jqmData( "html" ) || "";
+		    $.mobile.loading( "show", {
+		            text: msgText,
+		            textVisible: textVisible,
+		            theme: theme,
+		            textonly: textonly,
+		            html: html
+		    });
+		})
+		.on( "click", ".hide-page-loading-msg", function() {
+		    $.mobile.loading( "hide" );
+		});
+		
+		$(function(){
+		      // bind change event to select
+		      $('#select-native-1').bind('change', function () {
+		          var url = $(this).val(); // get selected value
+		          if (url) { // require a URL
+		              $.mobile.changePage( url, { transition: "slide", changeHash: false });
+		          }
+		          return false;
+		      });
+		    });
+	</script>
+</head>
+<body>
+	<div data-role=page id=win1>
+		<div data-role=header>
+			<h1>Page 1</h1>
+		</div>
+		<form>
+			<div class="ui-field-contain">
+				<label for="select-native-1">Page:</label>
+				<select name="select-native-1" id="select-native-1">
+				<option value="versionfinal.html">Page 1</option>
+				<option value="#win2">Page 2</option>
+				<option value="#win3">Page 3</option>
+				</select>
+			</div>
+		</form>
+		<div data-role=content>
+			<b>Insert Decimal Number: </b><input type = "text" name = "deci" id = "deci" size = "15" maxlength = "15" />
+			<input type="button" value="Convert!" onclick="dec2bin()" class="show-page-loading-msg"/>
+			<br><br>
+			<div id = "result"></div>
+		</div>
+		
+	</div> <!-- Page 1 -->
+	<div data-role=page id=win2>
+		<div data-role=header>
+			<h1>Page 2</h1>
+		</div>
+		<form>
+			<div class="ui-field-contain">
+				<label for="select-native-1">Page:</label>
+				<select name="select-native-1" id="select-native-1" onchange="location = this.value;">
+				<option value="versionfinal.html" >Page 1</option>
+				<option value="#win2" ><a href="#win2">Page 2</a></option>
+				<option value="#win3">Page 3</option>
+				</select>
+			</div>
+		</form>
+		<div data-role=content>
+			<table>
+			    <tbody>
+			        <tr>
+			            <td colspan="5">
+			                <textarea id="id1" cols="50" rows="10"></textarea>
+			                <!-- RGB value boxes !-->
+			            </td>
+			            <td>
+			                R
+			                <input id="red" type=text size=3 maxlength=3 name="r" value="0" onBlur="rgb()">
+			            </td>
+			            <td>
+			                G
+			                <input id="green" type=text size=3 maxlength=3 name="g" value="0" onBlur="rgb()">
+			            </td>
+			            <td>    
+			                B
+			                <input id="blue" type=text size=3 maxlength=3 name="b" value="0" onBlur="rgb()">
+			          </td>
+			      </tr>
+			  </tbody>
+			</table>
+		</div>
+	</div> <!-- page 2 -->
+	<div data-role=page id=win3>
+		<div data-role=header>
+			<h1>Page 3</h1>
+		</div>
+		<div data-role="panel" id="mypanel">
+		    <h4>Halaman ini menjelaskan rangkuman dari bab - bab hingga UTS.</h4>
+		    <p>Bab 1 - Introduction Technology</p>
+		    <p>Bab 2 - Github & JQM</p>
+		    <a href="#win3" data-rel="close">Close panel</a>
+		</div>
+		<div data-role=content>
+			<form>
+			<div class="ui-field-contain">
+				<label for="select-native-1">Page:</label>
+				<select name="select-native-1" id="select-native-1" onchange="location = this.value;">
+				<option value="versionfinal.html" >Page 1</option>
+				<option value="#win2" ><a href="#win2">Page 2</a></option>
+				<option value="#win3">Page 3</option>
+				</select>
+			</div>
+			</form>
+		<a href="#mypanel">Panel</a>
+		<div class="rwd-example">
+			<div class="ui-block-a">
+				<h4>Bab 1</h4>
+				<p>Pada bab ini kita mempelajari sejarah perkembangan teknologi khususnya sejarah perkembangan koneksi mulai dari 1G hingga 5G. Lalu kita juga mempelajari bagaimana perkembangan penggunaan internet yang semakin lama semakin besar. Setelah itu kita juga mempelajari bagaimana perkembangan teknologi pemrograman mobile. Ada beberapa framework yang bisa digunakan untuk hal ini. Antara lain adalah: </p>
+				<ul data-role=listview>
+					<li>Appcelerator</li>
+					<li>Rhomobile</li>
+					<li>Mosync</li>
+				</ul>
+			</div>
+			<div class="ui-block-b">
+				<h4>Bab 2</h4>
+				<p>Pada bagian pertama dari bab 2 ini kita belajar mengenai Git. Git sendiri adalah suatu aplikasi project manager yang memiliki version control system yang baik. Version control dari Git dapat dibagi menjadi 3 yaitu lokal, terpusat, dan terdistribusi. Git sendiri dapat diakses dengan dua cara yaitu dengan Git Bash maupun Git GUI. Untuk Git GUI sendiri terdapat berbagai macam aplikasi yang dapat digunakan seperti Source Tree, SmartGit, dan juga GitHub. Persentase pemahaman saya mengenai materi ini adalah: </p>
+				<form>
+				    <input type="range" name="slider-1" id="slider-1" min="0" max="100" value="91">
+				</form>
+			</div>
+			<div class="ui-block-c">
+				<h4>Bab 2</h4>
+				<p>Pada bagian kedua dari bab 2 kita mempelajari mengenai jquery mobile. Pada Jquery mobile ini, kita mempelajari bagaimana membuat suatu tampilan mirip dengan desain dari suatu aplikasi android. Mulai dari data-role yang berguna untuk membuat beberapa page, lalu ada juga transition antar page, kemudian Jquery Mobile juga memiliki beberapa default theme yang dapat kita gunakan. Setelah itu, ada juga list view, button - button dengan beberapa icon standard. Link demo JQuery Mobile: </p>
+				<button class="show-page-loading-msg" data-textonly="true" data-textvisible="true" data-msgtext="http://demos.jquerymobile.com/1.4.5" data-inline="true">Demo Link</button>
+				<button class="hide-page-loading-msg" data-inline="true" data-icon="delete">Hide</button>
+			</div>
+		</div>
+		</div>
+	</div><!-- page 3 -->
+</body>
